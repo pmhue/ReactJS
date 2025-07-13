@@ -11,6 +11,9 @@ import DemoChangeColor from './RenderStatement/DemoChangeColor';
 import DemoTinker from './RenderStatement/DemoTinker';
 import DemoStyle from './StyleComponent/DemoStyle';
 import DemoProps from './Props/DemoProps';
+import BT_ProductList from './Props/BTProps/BT_ProductList';
+import BT_StateProps from './Props/BT_StateProps/BT_StateProps';
+import BT_ChonXe from './Props/BT_ChonXe/BT_ChonXe';
 
 
 
@@ -25,7 +28,10 @@ createRoot(document.getElementById('root')).render(
     {/* <DemoChangeColor /> */}
     {/* <DemoTinker /> */}
     {/* <DemoStyle /> */}
-    <DemoProps />
+    {/* <DemoProps /> */}
+    {/* <BT_ProductList /> */}
+    <BT_StateProps />
+    {/* <BT_ChonXe /> */}
     
   </>
 )
