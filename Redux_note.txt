@@ -1,0 +1,87 @@
+- npm install react-redux
+- cài reduc extention
+npm install antd
+npm install momentjs   : thư viện về ngày tháng năm giờ
+
+npm install @ant-design/icons@5.x --save : cai thư viện icons
+npm install dayjs  : thư viện về ngày tháng năm giờ
+
+npm i @reduxjs/toolkit
+npm i react-redux
+
+
+
+
+====================================================
+
+Chuẩn bị Redux cho dự án React:
+
+1. Cài đặt các package cần thiết:
+   npm install react-redux @reduxjs/toolkit
+
+2. Tạo cấu trúc thư mục:
+   src/
+   ├── redux/
+   │   ├── store.js
+   │   ├── slices/
+   │   │   ├── userSlice.js
+   │   │   └── productSlice.js
+   │   └── actions/
+   │       └── index.js
+
+3. Tạo store (src/redux/store.js):
+   import { configureStore } from '@reduxjs/toolkit'
+   import userSlice from './slices/userSlice'
+   import productSlice from './slices/productSlice'
+   
+   export const store = configureStore({
+     reducer: {
+       user: userSlice,
+       product: productSlice
+     }
+   })
+
+4. Tạo slice đầu tiên (src/redux/slices/userSlice.js):
+   import { createSlice } from '@reduxjs/toolkit'
+   
+   const initialState = {
+     userInfo: null,
+     isLoading: false
+   }
+   
+   export const userSlice = createSlice({
+     name: 'user',
+     initialState,
+     reducers: {
+       setUserInfo: (state, action) => {
+         state.userInfo = action.payload
+       },
+       setLoading: (state, action) => {
+         state.isLoading = action.payload
+       }
+     }
+   })
+   
+   export const { setUserInfo, setLoading } = userSlice.actions
+   export default userSlice.reducer
+
+5. Cấu hình Provider trong main.jsx hoặc index.js:
+   import { Provider } from 'react-redux'
+   import { store } from './redux/store'
+   
+   <Provider store={store}>
+     <App />
+   </Provider>
+
+6. Sử dụng Redux trong component:
+   import { useSelector, useDispatch } from 'react-redux'
+   import { setUserInfo } from '../redux/slices/userSlice'
+   
+   const Component = () => {
+     const userInfo = useSelector(state => state.user.userInfo)
+     const dispatch = useDispatch()
+     
+     const handleSetUser = () => {
+       dispatch(setUserInfo({name: 'John', age: 30}))
+     }
+   }

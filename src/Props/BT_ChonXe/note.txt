@@ -1,0 +1,17 @@
+tổng thể:
+- component cha: BT_ChonXe chứa các component con: T_Modal, BT_DanhSachSanPham
+
+- component con: BT_DanhSachSanPham chứa các component con: BT_SanPhamItem
+trên component con BT_SanPhamItem mới chứa nút "Xem chi tiết" để mở modal
+
+vì vậy ta phải chọn đặt useState trong component cha BT_ChonXe để lưu trữ state của modal
+và truyền props state này xuống component con BT_DanhSachSanPham, 
+rồi từ component con BT_DanhSachSanPham truyền props state này xuống component 
+con BT_SanPhamItem (Truyền props state qua 2 cấp như vậy để có thể hiển thị chi tiết xe)
+
+
+
+
+
+
+

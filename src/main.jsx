@@ -1,40 +1,122 @@
-import { createRoot } from 'react-dom/client'
-import BT1_HomeComponent from './components/BT1_HomeComponent'
+import { createRoot } from 'react-dom/client';
 //import css
-import "./css/index.css";
-import DataBinding from './databinding/DataBinding';
-import HandleEvent from './HandleEvent/HandleEvent';
-import RenderCondition from './render_condition/RenderCondition';
-import DemoState from './RenderStatement/DemoState';
-import DemoChangeNumber from './RenderStatement/DemoChangeNumber';
-import DemoChangeColor from './RenderStatement/DemoChangeColor';
-import DemoTinker from './RenderStatement/DemoTinker';
-import DemoStyle from './StyleComponent/DemoStyle';
-import DemoProps from './Props/DemoProps';
-import BT_ProductList from './Props/BTProps/BT_ProductList';
-import BT_StateProps from './Props/BT_StateProps/BT_StateProps';
-import BT_ChonXe from './Props/BT_ChonXe/BT_ChonXe';
 
+import ProductsPage from './api/ProductsPage';
+import ToDoListApi from './api/ToDoListApi';
+import "./css/index.css";
+import AntdDemo from './Pages/AntdDemo/AntdDemo';
+import HomeIndex from './Pages/HomeIndex';
+import Login from './Pages/Login';
+import DemoUseNavigate from './Pages/ReactRouterDom/DemoUseNavigate';
+import DemoUseParam from './Pages/ReactRouterDom/DemoUseParam';
+import DemoUseSearchParam from './Pages/ReactRouterDom/DemoUseSearchParam';
+import ForGotPass from './Pages/ReactRouterDom/ForGotPass';
+import Register from './Pages/Register';
+import HeaderHome from './Templates/HeaderHome';
+import HomeTemplate from './Templates/HomeTemplate';
+//setup redux
+import { Provider } from 'react-redux';
+import ChangeNumberRedux from './Pages/ReduxDemo/ChangeNumberRedux';
+import ReduxProductsPage from './Pages/ReduxProducts';
+import ReduxShoppingCartPage from './Pages/ReduxShoppingCart';
+import { store } from './redux/store';
+import BookingTicketPage from './Pages/ReduxDemo/BookingTicketPage';
+import DemoGetApiThunk from './ReduxMiddleware/DemoGetApiThunk';
+import AdminTemplate from './Templates/AdminTemplate';
+import ProductManagement from './Pages/Admin/ProductManagement';
+import ProductEdit from './Pages/Admin/ProductEdit';
+import StoreManagement from './Pages/Admin/StoreManagement';
+import DemoUseMemo from './Pages/HookToiUu/DemoUseMemo/DemoUseMemo';
+import DemoUseCallback from './Pages/HookToiUu/DemoUseCallback/DemoUseCallback';
+import DemoUseRef from './Pages/HookToiUu/DemoUseRef/DemoUseRef';
+import DemoCustomHook from './Pages/CustomHook/DemoCustomHook';
+import LoginAuth from './Pages/Auth/LoginAuth';
+import RegisterAuth from './Pages/Auth/RegisterAuth';
+import Profile from './Pages/Auth/Profile';
+//Cấu hình router history
+import { BrowserRouter, Outlet, Route, Routes , unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
+import {createBrowserHistory} from 'history'
+import DemoHOC from './Pages/HOC/DemoHOC';
+import DemoContainer from './Pages/HOC/ContainerComponent/DemoContainer';
+import ModalRedux from './Pages/HOC/ContainerComponent/ModalRedux';
+import DemoContainerRedux from './Pages/HOC/ContainerComponent/DemoContainerRedux';
+import AuthenTemplate from './Templates/AuthenTemplate';
+import HomePageMobile from './Pages/HomePage_Container/HomePageMobile';
+import HomePage from './Pages/HomePage_Container/HomePage';
+import ResponsiveItem from './Templates/ResponsiveItem';
+import BottomTabMenu from './Templates/BottomTabMenu';
+export const history = createBrowserHistory();
+//HOC: higher order component
 
 
 createRoot(document.getElementById('root')).render(
   <>
-   {/* <BT1_HomeComponent /> */}
-   {/* <DataBinding /> */}
-   {/* <HandleEvent /> */}
-    {/* <RenderCondition /> */}
-    {/* <DemoState /> */}
-    {/* <DemoChangeNumber /> */}
-    {/* <DemoChangeColor /> */}
-    {/* <DemoTinker /> */}
-    {/* <DemoStyle /> */}
-    {/* <DemoProps /> */}
-    {/* <BT_ProductList /> */}
-    <BT_StateProps />
-    {/* <BT_ChonXe /> */}
-    
+    <HistoryRouter history={history}>
+      <Provider store={store}>
+        <ModalRedux />
+        <Routes>
+          <Route path='' element={<HomeTemplate />}>
+            <Route index element={<HomeIndex />}></Route>
+            <Route path='login' element={<LoginAuth />}></Route>
+            <Route path='register' element={<RegisterAuth />}></Route>
+            <Route path='profile' element={<Profile />}></Route>
+            <Route path='forgot-password' element={<div><h2>Forgot Password</h2></div>}></Route>
+            <Route path='antd' element={<AntdDemo />}></Route>
+            <Route path='redux-change-number' element={<ChangeNumberRedux />}></Route>
+            <Route path='redux-products' element={<ReduxProductsPage />}></Route>
+            <Route path='redux-shopping-cart' element={<ReduxShoppingCartPage />}></Route>
+            <Route path='booking-ticket' element={<BookingTicketPage />}></Route>
+            <Route path='reduxthunkdemo' element={<DemoGetApiThunk />}></Route>
+            <Route path='demo-usememo' element={<DemoUseMemo />}></Route>
+            <Route path='demo-usecallback' element={<DemoUseCallback />}></Route>
+            <Route path='demo-useref' element={<DemoUseRef />}></Route>
+            <Route path='customhook-fetchdata' element={<DemoCustomHook />}></Route>
+          </Route>
+          <Route path='api' element={<div>
+            <header className='bg-dark text-white p-3'>Header</header>
+            <Outlet />
+            <footer className='bg-dark text-white p-3'>footer</footer>
+          </div>}>
+            <Route path='todolist' element={<ToDoListApi />} />
+            <Route path='productpage' element={<ProductsPage />} />
+          </Route>
+          <Route path='react-router-dom' element={<HomeTemplate />}>
+            <Route path='demo-use-navigate' element={<DemoUseNavigate />}></Route>
+            <Route path='for-got-pass' element={<ForGotPass />}></Route>
+            <Route path='use-search-param' element={<DemoUseSearchParam />}></Route>
+          </Route>
+          <Route path='demo-use-param'>
+            <Route path=':id' element={
+              <div>
+                <HeaderHome />
+                <DemoUseParam />
+              </div>
+            }></Route>
+          </Route>
+          <Route path='admin' element={<AuthenTemplate component={<AdminTemplate />} />}>
+            <Route path='product-management' element={<ProductManagement />}></Route>
+            <Route path='product-edit/:id' element={<ProductEdit />} >
+            </Route>
+            <Route path='store-management' element={<StoreManagement />} ></Route>
+          </Route>
+          <Route path='hoc' element={<HomeTemplate></HomeTemplate>}>
+            <Route  index element={<DemoHOC />}></Route>
+            <Route path='container-component' element={<DemoContainer />}></Route>
+            <Route path='demo-container-redux' element={<DemoContainerRedux />}></Route>
+          </Route>
+        </Routes>
+
+        <Routes>
+          <Route path="responsive" element={<HomeTemplate />}>
+            <Route index element={<ResponsiveItem component={HomePage} mobileComponent={HomePageMobile} />} />
+         
+          </Route>
+        </Routes>
+          
+        
+      </Provider>
+    </HistoryRouter>
   </>
 )
-
 
 
